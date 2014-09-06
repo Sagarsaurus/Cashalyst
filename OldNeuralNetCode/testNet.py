@@ -45,9 +45,9 @@ def createTests(pricesTrain, pricesTest):
     return (training, tests)  
 
 
-trainingPercent = 0.7
+trainingPercent = 0.9
 
-minPrice, maxPrice, prices = readCSV("ibm_open.csv")
+minPrice, maxPrice, prices = readCSV("sprint_open.csv")
 
 testData = []
 trainData = []
@@ -70,7 +70,7 @@ plotReal = []
 
 #for r in range(10, 60, 5):
 for i in range(0,1):
-    results, nnet, accuracy = NeuralNet.buildNeuralNet(test, 0.1, 0.00008, [5])
+    results, nnet, accuracy = NeuralNet.buildNeuralNet(test, 0.1, 0.00001, [5])
 #    acc.append(accuracy)
 #sizes.append(acc)
     correct = 0
@@ -108,7 +108,7 @@ print len(plotNet)
 print len(plotReal)
 writeCSV(plotReal, plotNet)
 
-minPrice, maxPrice, prices = readCSV("ibm_open.csv")
+minPrice, maxPrice, prices = readCSV("sprint_open.csv")
 
 days = 31
 
