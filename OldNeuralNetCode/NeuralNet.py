@@ -339,7 +339,7 @@ def buildNeuralNet(examples, alpha=0.1, weightChangeThreshold = 0.00008,hiddenLa
     trainError=0
     weightMod=1
     error = 1.0 
-    while iteration < maxItr and weightMod > weightChangeThreshold:# and error > 0.0007:
+    while iteration < maxItr and weightMod > weightChangeThreshold: # and error > 0.000005:
         iteration+=1
         error, weightMod = nnet.backPropLearning(examplesTrain, alpha)
         trainError += error
