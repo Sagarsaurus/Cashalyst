@@ -35,7 +35,7 @@ def createTests(pricesTrain, pricesTest):
         for j in range(0, numDays):
             temp.append(pricesTrain[i - j])
         training.append((temp, [pricesTrain[i]]))
-
+    
     for i in range(numDays, len(pricesTest)):
         temp = []
         for j in range(0, numDays):
@@ -70,7 +70,7 @@ plotReal = []
 
 #for r in range(10, 60, 5):
 for i in range(0,1):
-    results, nnet, accuracy = NeuralNet.buildNeuralNet(test, 0.1, 0.00008, [10])
+    results, nnet, accuracy = NeuralNet.buildNeuralNet(test, 0.1, 0.00008, [5])
 #    acc.append(accuracy)
 #sizes.append(acc)
     correct = 0
@@ -91,11 +91,22 @@ for i in range(0,1):
     percentError /= len(results)
     print "PE: " + str(percentError)
     acc.append(float(correct) / (correct + incorrect))
-
+    
     print "Price Correctness: " + str(float(correct) / (correct + incorrect))
 print "Max: " + str(max(acc))
 print "Min: " + str(min(acc))
 print "Avg: " + str((sum(acc) / len(acc)))
+
+
+for i in range(len(plotReal)):
+    plotReal[i] = str(plotReal[i])
+
+for i in range(len(plotNet)):
+    plotNet[i] = str(plotNet[i])
+
+print len(plotNet)
+print len(plotReal)
+writeCSV(plotReal, plotNet)
 
 minPrice, maxPrice, prices = readCSV("ibm_open.csv")
 
@@ -131,4 +142,3 @@ for i in range(len(plotNet)):
 
 print(len(plotReal))
 print(len(plotNet))
-writeCSV(plotReal, plotNet)
