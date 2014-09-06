@@ -1,6 +1,13 @@
 import NeuralNet
 from random import randint
-import matplotlib.pyplot as plt
+
+def writeCSV(a1, a2):
+    fo = open("plot.csv", "w")
+    temp = []
+    temp.append(','.join(a1))
+    temp.append(','.join(a2))
+    fo.write(temp[0] + "\n")
+    fo.write(temp[1])
 
 def readCSV(filename):
     a = 0.0
@@ -44,7 +51,7 @@ def createTests2(pricesTrain, pricesTest):
     tests = []
     training = []
   
-    numDays = 100
+    numDays = 50
     for i in range(len(pricesTrain[0]) - numDays):
         temp = []
         temp.append(pricesTrain[0][i + 1])
@@ -63,7 +70,7 @@ def createTests(pricesTrain, pricesTest):
     tests = []
     training = []
 
-    numDays = 6
+    numDays = 31
     for i in range(len(pricesTrain) - numDays):
         temp = []
         for j in range(i + 1, i + numDays + 1):
@@ -125,7 +132,7 @@ trainData.append(tempPrices)
 #testData.append(tempBull)
 #testData.append(tempBear)
 
-test = createTests2(trainData, testData)
+test = createTests(trainData[0], testData[0])
 #print test
 #test = ([([0,0,0],[0]), ([0,0,1],[0]), ([0,1,1],[1]), ([1,0,1],[1])], [([1,0,0],[0]), ([1,0,1],[1]), ([0,0,0],[0]), ([0,1,1],[1])])
 
@@ -171,18 +178,21 @@ plotX = range(len(plotNet))
 #plt.show()
 
 minPrice, maxPrice, prices = readCSV("ibm_open.csv")
-temp = prices[(len(prices) * 3 / 10) - 100:(len(prices) * 3 / 10)]
+temp = prices[(len(prices) * 3 / 10) - 31:(len(prices) * 3 / 10)]
 
 plotReal = prices[0:len(prices) * 3 / 10 + 1]
 
 plotNet = temp
 plotNet.reverse()
 plotReal.reverse()
-print plotNet
-print "-----------------------------------------------------------------------"
-print plotReal
-for i in range(99, len(plotReal) - 1):
-    ret = nnet.feedForward([plotNet[i],plotNet[i] - plotNet[i - 100]])
+#print plotNet
+#print "-----------------------------------------------------------------------"
+#print plotReal
+for i in range(30, len(plotReal) - 1):
+    temp = []
+    for j in range(i - 30, i):
+        temp.append(plotNet[j])     
+    ret = nnet.feedForward(temp)
     price = ret[len(ret) - 1][0]
    # price = price * (maxPrice - minPrice) + minPrice
     plotNet.append(price)
@@ -193,5 +203,11 @@ for i in range(len(plotNet)):
 for i in range(len(plotReal)):
     plotReal[i] = plotReal[i] * (maxPrice - minPrice) + minPrice
 plotX = range(len(plotNet))
-plt.plot(plotX,plotNet,"r--", plotX, plotReal, "bs")
-plt.show()
+
+for i in range(len(plotReal)):
+    plotReal[i] = str(plotReal[i])
+
+for i in range(len(plotNet)):
+    plotNet[i] = str(plotNet[i])
+
+writeCSV(plotReal, plotNet)

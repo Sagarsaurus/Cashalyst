@@ -111,7 +111,7 @@ class Perceptron(object):
             if len(previousWeights) == 0:
                 update = alpha * delta * newList[i]
             else:
-                update = alpha * delta * newList[i] #+ 0.3 * previousWeights[i]
+                update = alpha * delta * newList[i] + 0.7 * previousWeights[i]
          #       print 0.8 * previousWeights[i]
             weights.append(update)
             totalModification += abs(update)
@@ -339,7 +339,7 @@ def buildNeuralNet(examples, alpha=0.1, weightChangeThreshold = 0.00008,hiddenLa
     trainError=0
     weightMod=1
     error = 1.0 
-    while iteration < maxItr and weightMod > weightChangeThreshold:# and error > 0.0008:
+    while iteration < maxItr and weightMod > weightChangeThreshold and error > 0.0008:
         iteration+=1
         error, weightMod = nnet.backPropLearning(examplesTrain, alpha)
         trainError += error
