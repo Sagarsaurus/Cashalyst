@@ -20,7 +20,7 @@ def createTests(pricesTrain, pricesTest):
     tests = []
     training = []
 
-    numDays = 60
+    numDays = 6
     for i in range(len(pricesTrain) - numDays):
         temp = []
         for j in range(i + 1, i + numDays + 1):
@@ -54,7 +54,7 @@ sizes = []
 acc = []
 #for r in range(10, 60, 5):
 #for i in range(0,2):
-results, nnet, accuracy = NeuralNet.buildNeuralNet(test, 0.1, 0.00005, [1])
+results, nnet, accuracy = NeuralNet.buildNeuralNet(test, 0.1, 0.00002, [10])
 #    acc.append(accuracy)
 #sizes.append(acc)
 correct = 0
@@ -66,7 +66,7 @@ for r in results:
     nnetPrice = ((r[1] * (maxPrice - minPrice) - a) / (b - a)) + minPrice
     knownPrice = ((r[0] * (maxPrice - minPrice) - a) / (b - a)) + minPrice
         
-    if nnetPrice - knownPrice < knownPrice * 0.035  and nnetPrice - knownPrice > -knownPrice * 0.035:
+    if nnetPrice - knownPrice < knownPrice * 0.015  and nnetPrice - knownPrice > -knownPrice * 0.015:
         correct += 1
     else:
         incorrect += 1

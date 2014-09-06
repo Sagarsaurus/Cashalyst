@@ -85,7 +85,7 @@ class Perceptron(object):
         totalAct = self.getWeightedSum([1] + inActs)
         return self.sigmoidDeriv(totalAct)
     
-    def updateWeights(self, inActs, alpha, delta):
+    def updateWeights(self, inActs, alpha, delta, previousWeights):
         """
         Updates the weights for this Perceptron given the input delta.
         Remember to add 1 to the start of inActs for the bias input.
@@ -104,11 +104,19 @@ class Perceptron(object):
         """YOUR CODE"""
         newList = list(inActs)
         newList.insert(0, 1.0)
+        weights = []
+        update = 0
         for i in range(len(newList)):
-            update = alpha * delta * newList[i]
+            
+            if len(previousWeights) == 0:
+                update = alpha * delta * newList[i]
+            else:
+                update = alpha * delta * newList[i] + 0.5 * previousWeights[i]
+         #       print 0.8 * previousWeights[i]
+            weights.append(update)
             totalModification += abs(update)
             self.weights[i] += update
-        return totalModification   
+        return weights, totalModification   
     def setRandomWeights(self):
         """
         Generates random input weights that vary from -1.0 to 1.0
@@ -216,7 +224,14 @@ class NeuralNet(object):
         averageError = 0
         averageWeightChange = 0
         numWeights = 0
-       
+        previousWeightChanges = [] 
+        
+        for layerIndex in range(len(self.layers)):
+            previousWeightChanges.append([])
+            layer = self.layers[layerIndex]
+            for nodeIndex in range(len(layer)):
+                previousWeightChanges[layerIndex].append([]) 
+        
         for example in examples:#for each example
             for layer in self.layers:
                 for node in layer:
@@ -258,7 +273,9 @@ class NeuralNet(object):
             for layerIndex in range(len(self.layers)):
                 layer = self.layers[layerIndex]
                 for nodeIndex in range(len(layer)):
-                    averageWeightChange += layer[nodeIndex].updateWeights(netOutputs[layerIndex], alpha, allDeltas[layerIndex][nodeIndex])
+                    newWeightsUpdate, averageChange = layer[nodeIndex].updateWeights(netOutputs[layerIndex], alpha, allDeltas[layerIndex][nodeIndex], previousWeightChanges[layerIndex][nodeIndex])
+                    averageWeightChange += averageChange
+                    previousWeightChanges[layerIndex][nodeIndex] = newWeightsUpdate
             """
             Calculate output errors for each output perceptron and keep track 
             of error sum. Add error delta values to list.
