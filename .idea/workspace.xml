@@ -37,7 +37,7 @@
       <file leaf-file-name="BloombergTest.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BloombergTest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="0" selection-start="797" selection-end="797" vertical-scroll-proportion="0.9136276" vertical-offset="34" max-vertical-offset="952">
+            <state line="10" column="0" selection-start="217" selection-end="217" vertical-scroll-proportion="0.26103646" vertical-offset="34" max-vertical-offset="952">
               <folding />
             </state>
           </provider>
@@ -326,7 +326,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="960" height="1040" extended-state="1" />
+    <frame x="0" y="0" width="960" height="1040" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -420,7 +420,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BloombergTest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="0" selection-start="797" selection-end="797" vertical-scroll-proportion="0.9136276" vertical-offset="34" max-vertical-offset="952">
+        <state line="10" column="0" selection-start="217" selection-end="217" vertical-scroll-proportion="0.26103646" vertical-offset="34" max-vertical-offset="952">
           <folding />
         </state>
       </provider>
