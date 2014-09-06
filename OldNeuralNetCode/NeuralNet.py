@@ -55,7 +55,7 @@ class Perceptron(object):
             The rounded value of the sigmoid of the weighted input
         """
         totalAct = self.getWeightedSum([1] + inActs)
-        return round(self.sigmoid(totalAct))
+        return self.sigmoid(totalAct)
 
     def sigmoidDeriv(self, value):
         """
@@ -301,6 +301,8 @@ def buildNeuralNet(examples, alpha=0.1, weightChangeThreshold = 0.00008,hiddenLa
        once the weight modification reached the threshold, or the iteration 
        exceeds the maximum iteration.
     """
+
+    
     examplesTrain,examplesTest = examples       
     numIn = len(examplesTrain[0][0])
     numOut = len(examplesTest[0][1])     
@@ -344,6 +346,7 @@ def buildNeuralNet(examples, alpha=0.1, weightChangeThreshold = 0.00008,hiddenLa
     
     for example in examplesTest:
         feedForwardResult = nnet.feedForward(example[0])
+        print feedForwardResult[len(feedForwardResult)-1]
         if(example[1] == feedForwardResult[len(feedForwardResult)-1]):
             testGood += 1
         else:
@@ -351,7 +354,7 @@ def buildNeuralNet(examples, alpha=0.1, weightChangeThreshold = 0.00008,hiddenLa
     testAccuracy = float(testGood) / (testGood + testError)
 
 
-    print 'Feed Forward Test correctly classified %d, incorrectly classified %d, test percent error  %f\n'%(testGood,testError,testAccuracy)
+    print 'Feed Forward Test correctly classified %d, incorrectly classified %d, test percent correct  %f\n'%(testGood,testError,testAccuracy)
     
     """return something"""
     return nnet, testAccuracy
