@@ -342,7 +342,7 @@ def buildNeuralNet(examples, alpha=0.1, weightChangeThreshold = 0.00008,hiddenLa
     testError = 0
     testGood = 0     
     
-    thresh = 0.01
+    thresh = 0.015
     testAccuracy=0#num correct/num total
     results = [] 
     for example in examplesTest:
