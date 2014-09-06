@@ -21,118 +21,45 @@ def readCSV(filename):
     maxPrice = max(prices)
     for i in range(len(prices)):
         prices[i] = a + (((prices[i] - minPrice) * (b - a)) / (maxPrice - minPrice))
-#    prices.reverse()
+    prices.reverse()
     return minPrice, maxPrice, prices
 
 
-def createTests3(pricesTrain, pricesTest):
-    tests = []
-    training = []
-
-    numDays = 10
-    for i in range(len(pricesTrain[0]) - numDays):
-        temp = []
-        temp.append(pricesTrain[0][i + 1])
-        temp.append(pricesTrain[0][i + 1] - pricesTrain[0][i + numDays])
-        temp.append(pricesTrain[1][i + 1])
-        temp.append(pricesTrain[2][i + 1])
-        training.append((temp, [pricesTrain[0][i]]))
-
-    for i in range(len(pricesTest[0]) - numDays):
-        temp = []
-        temp.append(pricesTest[0][i + 1])
-        temp.append(pricesTest[0][i + 1] - pricesTest[0][i + numDays])
-        temp.append(pricesTest[1][i + 1])
-        temp.append(pricesTest[2][i + 1])
-        tests.append((temp, [pricesTest[0][i]]))
-    return (training, tests)
-
-def createTests2(pricesTrain, pricesTest):
-    tests = []
-    training = []
-  
-    numDays = 50
-    for i in range(len(pricesTrain[0]) - numDays):
-        temp = []
-        temp.append(pricesTrain[0][i + 1])
-        temp.append(pricesTrain[0][i + 1] - pricesTrain[0][i + numDays])
-        training.append((temp, [pricesTrain[0][i]]))
-  
-    for i in range(len(pricesTest[0]) - numDays):
-        temp = []
-        temp.append(pricesTest[0][i + 1])
-        temp.append(pricesTest[0][i + 1] - pricesTest[0][i + numDays])
-        tests.append((temp, [pricesTest[0][i]])) 
-    return (training, tests)
-
- 
 def createTests(pricesTrain, pricesTest):
     tests = []
     training = []
 
     numDays = 31
-    for i in range(len(pricesTrain) - numDays):
+    for i in range(numDays, len(pricesTrain)):
         temp = []
-        for j in range(i + 1, i + numDays + 1):
-            temp.append(pricesTrain[j])
+        for j in range(0, numDays):
+            temp.append(pricesTrain[i - j])
         training.append((temp, [pricesTrain[i]]))
-    
-    for i in range(len(pricesTest) - numDays):
+
+    for i in range(numDays, len(pricesTest)):
         temp = []
-        for j in range(i + 1, i + numDays + 1):
-            temp.append(pricesTest[j])
-        tests.append((temp, [pricesTest[i]])) 
+        for j in range(0, numDays):
+            temp.append(pricesTest[i - j])
+        tests.append((temp, [pricesTest[i]]))    
 
     return (training, tests)  
 
 
-allDataMin = []
-allDataMax = []
-allData = []
+trainingPercent = 0.7
 
 minPrice, maxPrice, prices = readCSV("ibm_open.csv")
-#minBull, maxBull, bull = readCSV("google_bullish.csv")
-#minBear, maxBear, bear = readCSV("google_bearish.csv")
-
-allDataMin.append(minPrice)
-allDataMax.append(maxPrice)
-allData.append(prices)
-
-#allDataMin.append(minBull)
-#allDataMax.append(maxBull)
-#allData.append(bull)
-
-#allDataMin.append(minBear)
-#allDataMax.append(maxBear)
-#allData.append(bear)
 
 testData = []
 trainData = []
 
-tempPrices = []
-tempBull = []
-tempBear = []
-for i in range(0, min([len(prices)]) * 3 / 10):
-    tempPrices.append(prices[i])
- #   tempBull.append(bull[i])
- #   tempBear.append(bear[i])
+for i in range(0, int(len(prices) * trainingPercent)):
+    trainData.append(prices[i])
 
-testData.append(tempPrices)
-#trainData.append(tempBull)
-#trainData.append(tempBear)
+for i in range(int(len(prices) * trainingPercent) + 1, len(prices)):
+    testData.append(prices[i])
 
-tempPrices = []
-#tempBull = []
-#tempBear = []
-for i in range(min([len(prices)]) * 3 / 10, min([len(prices)])):
-    tempPrices.append(prices[i])
- #   tempBull.append(bull[i])
-  #  tempBear.append(bear[i])
-trainData.append(tempPrices)
-#testData.append(tempBull)
-#testData.append(tempBear)
 
-test = createTests(trainData[0], testData[0])
+test = createTests(trainData, testData)
 #print test
 #test = ([([0,0,0],[0]), ([0,0,1],[0]), ([0,1,1],[1]), ([1,0,1],[1])], [([1,0,0],[0]), ([1,0,1],[1]), ([0,0,0],[0]), ([0,1,1],[1])])
 
@@ -143,7 +70,7 @@ plotReal = []
 
 #for r in range(10, 60, 5):
 for i in range(0,1):
-    results, nnet, accuracy = NeuralNet.buildNeuralNet(test, 0.1, 0.00008, [5])
+    results, nnet, accuracy = NeuralNet.buildNeuralNet(test, 0.1, 0.00008, [10])
 #    acc.append(accuracy)
 #sizes.append(acc)
     correct = 0
@@ -170,39 +97,31 @@ print "Max: " + str(max(acc))
 print "Min: " + str(min(acc))
 print "Avg: " + str((sum(acc) / len(acc)))
 
-plotNet.reverse()
-plotReal.reverse()
-plotX = range(len(plotNet))
-
-#plt.plot(plotX,plotNet,"r--", plotX, plotReal, "bs")
-#plt.show()
-
 minPrice, maxPrice, prices = readCSV("ibm_open.csv")
-temp = prices[(len(prices) * 3 / 10) - 31:(len(prices) * 3 / 10)]
 
-plotReal = prices[0:len(prices) * 3 / 10 + 1]
+days = 31
 
-plotNet = temp
-plotNet.reverse()
-plotReal.reverse()
-#print plotNet
-#print "-----------------------------------------------------------------------"
-#print plotReal
-for i in range(30, len(plotReal) - 1):
+plotNet = prices[int(len(prices) * trainingPercent) - days: int(len(prices) * trainingPercent)]
+
+
+plotReal = prices[int(len(prices) * trainingPercent) - days: len(prices)]
+
+
+for i in range(days - 1, len(plotReal) - 1):
     temp = []
-    for j in range(i - 30, i):
+    for j in range(i - days - 1, i):
         temp.append(plotNet[j])     
     ret = nnet.feedForward(temp)
     price = ret[len(ret) - 1][0]
    # price = price * (maxPrice - minPrice) + minPrice
     plotNet.append(price)
 
+
 for i in range(len(plotNet)):
     plotNet[i] = plotNet[i] * (maxPrice - minPrice) + minPrice
 
 for i in range(len(plotReal)):
     plotReal[i] = plotReal[i] * (maxPrice - minPrice) + minPrice
-plotX = range(len(plotNet))
 
 for i in range(len(plotReal)):
     plotReal[i] = str(plotReal[i])
@@ -210,4 +129,6 @@ for i in range(len(plotReal)):
 for i in range(len(plotNet)):
     plotNet[i] = str(plotNet[i])
 
+print(len(plotReal))
+print(len(plotNet))
 writeCSV(plotReal, plotNet)
