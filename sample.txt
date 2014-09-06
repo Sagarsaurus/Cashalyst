@@ -1,0 +1,86 @@
+HistoricalDataResponse = {
+    securityData = {
+        security = "VBK US Equity"
+        eidData[] = {
+        }
+        sequenceNumber = 0
+        fieldExceptions[] = {
+        }
+        fieldData[] = {
+            fieldData = {
+                date = 2005-01-07
+                PX_LAST = 50.95
+                OPEN = 54.25
+                CUR_MKT_CAP = 87.2774
+            }
+            fieldData = {
+                date = 2005-01-14
+                PX_LAST = 51.3
+                OPEN = 51.05
+                CUR_MKT_CAP = 87.8769
+            }
+         }
+        }
+     }
+HistoricalDataResponse = {
+    securityData = {
+        security = "IYY US Equity"
+        eidData[] = {
+        }
+        sequenceNumber = 1
+        fieldExceptions[] = {
+        }
+        fieldData[] = {
+            fieldData = {
+                date = 2005-01-07
+                PX_LAST = 56.46
+                OPEN = 58.2
+                CUR_MKT_CAP = 423.45
+            }
+            fieldData = {
+                date = 2005-01-14
+                PX_LAST = 56.47
+                OPEN = 56.4
+                CUR_MKT_CAP = 423.525
+            }
+            fieldData = {
+                date = 2005-01-21
+                PX_LAST = 55.76
+                OPEN = 56.39
+                CUR_MKT_CAP = 418.2
+            }
+         }
+     }
+}
+
+
+HistoricalDataResponse = {
+    securityData = {
+        security = "VNQ US Equity"
+        eidData[] = {
+        }
+        sequenceNumber = 2
+        fieldExceptions[] = {
+        }
+        fieldData[] = {
+            fieldData = {
+                date = 2005-01-07
+                PX_LAST = 53.51
+                OPEN = 56.75
+                CUR_MKT_CAP = 167.379
+            }
+            fieldData = {
+                date = 2005-01-14
+                PX_LAST = 53.2
+                OPEN = 53.45
+                CUR_MKT_CAP = 177.05
+            }
+            fieldData = {
+                date = 2005-01-21
+                PX_LAST = 53.65
+                OPEN = 53.15
+                CUR_MKT_CAP = 205.372
+            }
+        }
+    }
+}
