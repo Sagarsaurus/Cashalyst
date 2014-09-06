@@ -104,6 +104,8 @@ for i in range(len(plotReal)):
 for i in range(len(plotNet)):
     plotNet[i] = str(plotNet[i])
 
+print len(plotNet)
+print len(plotReal)
 writeCSV(plotReal, plotNet)
 
 minPrice, maxPrice, prices = readCSV("ibm_open.csv")
@@ -140,4 +142,3 @@ for i in range(len(plotNet)):
 
 print(len(plotReal))
 print(len(plotNet))
-writeCSV(plotReal, plotNet)
