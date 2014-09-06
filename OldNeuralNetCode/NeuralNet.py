@@ -326,7 +326,7 @@ def buildNeuralNet(examples, alpha=0.1, weightChangeThreshold = 0.00008,hiddenLa
         iteration+=1
         error, weightMod = nnet.backPropLearning(examplesTrain, alpha)
         trainError += error
-        if iteration%10==0:
+        if iteration%1000==0:
             print '! on iteration %d; training error %f and weight change %f'%(iteration,trainError,weightMod)
         else :
             print '.',
@@ -342,12 +342,13 @@ def buildNeuralNet(examples, alpha=0.1, weightChangeThreshold = 0.00008,hiddenLa
     testError = 0
     testGood = 0     
     
+    thresh = 0.01
     testAccuracy=0#num correct/num total
-    
+    results = [] 
     for example in examplesTest:
         feedForwardResult = nnet.feedForward(example[0])
-        print feedForwardResult[len(feedForwardResult)-1]
-        if(example[1] == feedForwardResult[len(feedForwardResult)-1]):
+        results.append((example[1][0], feedForwardResult[len(feedForwardResult)-1][0]))
+        if(example[1][0] + thresh > feedForwardResult[len(feedForwardResult)-1][0] and example[1][0] - thresh < feedForwardResult[len(feedForwardResult)-1][0]):
             testGood += 1
         else:
             testError += 1
@@ -357,5 +358,5 @@ def buildNeuralNet(examples, alpha=0.1, weightChangeThreshold = 0.00008,hiddenLa
     print 'Feed Forward Test correctly classified %d, incorrectly classified %d, test percent correct  %f\n'%(testGood,testError,testAccuracy)
     
     """return something"""
-    return nnet, testAccuracy
+    return results, nnet, testAccuracy
 
