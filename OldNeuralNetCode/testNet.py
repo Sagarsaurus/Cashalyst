@@ -24,42 +24,73 @@ def readCSV(filename):
     prices.reverse()
     return minPrice, maxPrice, prices
 
+def createTests2(pricesTrain, pricesTest, dowTrain, dowTest):
+    tests = []
+    training = []
+
+    numDays = 31
+    for i in range(numDays, len(pricesTrain) - 150):
+        temp = []
+        for j in range(0, numDays):
+            temp.append(pricesTrain[i - j])
+        if dowTrain[i - numDays] == 0.0:
+            temp.append(1)
+        else:
+            temp.append((dowTrain[i] - dowTrain[i - numDays]) / dowTrain[i - numDays])
+        training.append((temp, [pricesTrain[i + 150]]))
+
+    for i in range(numDays, len(pricesTest) - 150):
+        temp = []
+        for j in range(0, numDays):
+            temp.append(pricesTest[i - j])
+        if dowTest[i - numDays] == 0.0:
+            temp.append(1)
+        else:
+            temp.append((dowTest[i] - dowTest[i - numDays]) / dowTest[i - numDays])
+        tests.append((temp, [pricesTest[i + 150]]))
+
+    return (training, tests)
 
 def createTests(pricesTrain, pricesTest):
     tests = []
     training = []
 
-    numDays = 31
-    for i in range(numDays, len(pricesTrain)):
+    numDays = 20
+    for i in range(numDays, len(pricesTrain) - 10):
         temp = []
-        for j in range(0, numDays):
+        for j in range(0, numDays - 10):
             temp.append(pricesTrain[i - j])
-        training.append((temp, [pricesTrain[i]]))
+        training.append((temp, [pricesTrain[i + 10]]))
     
-    for i in range(numDays, len(pricesTest)):
+    for i in range(numDays, len(pricesTest) - 10):
         temp = []
-        for j in range(0, numDays):
+        for j in range(0, numDays - 10):
             temp.append(pricesTest[i - j])
-        tests.append((temp, [pricesTest[i]]))    
+        tests.append((temp, [pricesTest[i + 10]]))    
 
     return (training, tests)  
 
 
-trainingPercent = 0.7
+trainingPercent = 0.5
 
 minPrice, maxPrice, prices = readCSV("ibm_open.csv")
+minDow, maxDow, dow = readCSV("dow.csv")
 
 testData = []
 trainData = []
 
+trainDow = []
+testDow = []
 for i in range(0, int(len(prices) * trainingPercent)):
     trainData.append(prices[i])
+    trainDow.append(dow[i])
 
 for i in range(int(len(prices) * trainingPercent) + 1, len(prices)):
     testData.append(prices[i])
+    testDow.append(dow[i])
 
 
-test = createTests(trainData, testData)
+test = createTests2(trainData, testData, trainDow, testDow)
 #print test
 #test = ([([0,0,0],[0]), ([0,0,1],[0]), ([0,1,1],[1]), ([1,0,1],[1])], [([1,0,0],[0]), ([1,0,1],[1]), ([0,0,0],[0]), ([0,1,1],[1])])
 
@@ -70,7 +101,7 @@ plotReal = []
 
 #for r in range(10, 60, 5):
 for i in range(0,1):
-    results, nnet, accuracy = NeuralNet.buildNeuralNet(test, 0.1, 0.00008, [5])
+    results, nnet, accuracy = NeuralNet.buildNeuralNet(test, 0.1, 0.0000002, [5])
 #    acc.append(accuracy)
 #sizes.append(acc)
     correct = 0
@@ -90,7 +121,7 @@ for i in range(0,1):
         percentError += abs((nnetPrice - knownPrice)) / knownPrice
     percentError /= len(results)
     print "PE: " + str(percentError)
-    acc.append(float(correct) / (correct + incorrect))
+    acc.append(percentError)
     
     print "Price Correctness: " + str(float(correct) / (correct + incorrect))
 print "Max: " + str(max(acc))
@@ -104,18 +135,14 @@ for i in range(len(plotReal)):
 for i in range(len(plotNet)):
     plotNet[i] = str(plotNet[i])
 
-print len(plotNet)
-print len(plotReal)
 writeCSV(plotReal, plotNet)
-
 minPrice, maxPrice, prices = readCSV("ibm_open.csv")
-
 days = 31
 
-plotNet = prices[int(len(prices) * trainingPercent) - days: int(len(prices) * trainingPercent)]
+plotNet = prices[int(len(prices) * trainingPercent): int(len(prices) * trainingPercent) + days]
 
 
-plotReal = prices[int(len(prices) * trainingPercent) - days: len(prices)]
+plotReal = prices[int(len(prices) * trainingPercent): len(prices)]
 
 
 for i in range(days - 1, len(plotReal) - 1):
@@ -140,5 +167,4 @@ for i in range(len(plotReal)):
 for i in range(len(plotNet)):
     plotNet[i] = str(plotNet[i])
 
-print(len(plotReal))
-print(len(plotNet))
+#writeCSV(plotReal, plotNet)

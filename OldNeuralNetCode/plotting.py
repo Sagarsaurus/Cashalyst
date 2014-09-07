@@ -15,7 +15,7 @@ def plotCSV(filename):
     print len(listOne)
     plotX = range(len(listZero))
     print len(plotX)
-    plt.plot(plotX, listZero, "bs", plotX, listOne, "r--")
+    plt.plot(plotX, listZero, "g--", plotX, listOne, "r--")
     plt.show()
 
 plotCSV("plot.csv")
