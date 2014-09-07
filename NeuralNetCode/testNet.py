@@ -29,8 +29,8 @@ def createTests2(pricesTrain, pricesTest, dowTrain, dowTest):
     tests = []
     training = []
 
-    numDays = 5
-    for i in range(numDays, len(pricesTrain) - 5):
+    numDays = 31
+    for i in range(numDays, len(pricesTrain) - 1):
         temp = []
         for j in range(0, numDays):
             temp.append(pricesTrain[i - j])
@@ -38,9 +38,9 @@ def createTests2(pricesTrain, pricesTest, dowTrain, dowTest):
             temp.append(1)
         else:
             temp.append((dowTrain[i] - dowTrain[i - numDays]) / dowTrain[i - numDays])
-        training.append((temp, [pricesTrain[i + 5]]))
+        training.append((temp, [pricesTrain[i + 1]]))
 
-    for i in range(numDays, len(pricesTest) - 5):
+    for i in range(numDays, len(pricesTest) - 1):
         temp = []
         for j in range(0, numDays):
             temp.append(pricesTest[i - j])
@@ -48,7 +48,7 @@ def createTests2(pricesTrain, pricesTest, dowTrain, dowTest):
             temp.append(1)
         else:
             temp.append((dowTest[i] - dowTest[i - numDays]) / dowTest[i - numDays])
-        tests.append((temp, [pricesTest[i + 5]]))
+        tests.append((temp, [pricesTest[i + 1]]))
 
     return (training, tests)
 
@@ -57,24 +57,24 @@ def createTests(pricesTrain, pricesTest):
     training = []
 
     numDays = 20
-    for i in range(numDays, len(pricesTrain) - 10):
+    for i in range(numDays, len(pricesTrain) - 1):
         temp = []
-        for j in range(0, numDays - 10):
+        for j in range(0, numDays):
             temp.append(pricesTrain[i - j])
-        training.append((temp, [pricesTrain[i + 10]]))
+        training.append((temp, [pricesTrain[i + 1]]))
     
-    for i in range(numDays, len(pricesTest) - 10):
+    for i in range(numDays, len(pricesTest) - 1):
         temp = []
-        for j in range(0, numDays - 10):
+        for j in range(0, numDays):
             temp.append(pricesTest[i - j])
-        tests.append((temp, [pricesTest[i + 10]]))    
+        tests.append((temp, [pricesTest[i + 1]]))    
 
     return (training, tests)  
 
 
-trainingPercent = 0.5
+trainingPercent = 0.9
 
-minPrice, maxPrice, prices = readCSV("ibm_open.csv")
+minPrice, maxPrice, prices = readCSV("google_open.csv")
 minDow, maxDow, dow = readCSV("dow.csv")
 
 testData = []
@@ -84,14 +84,15 @@ trainDow = []
 testDow = []
 for i in range(0, int(len(prices) * trainingPercent)):
     trainData.append(prices[i])
-    trainDow.append(dow[i])
+  #  trainDow.append(dow[i])
 
 for i in range(int(len(prices) * trainingPercent) + 1, len(prices)):
     testData.append(prices[i])
-    testDow.append(dow[i])
+ #   testDow.append(dow[i])
 
 
-test = createTests2(trainData, testData, trainDow, testDow)
+#test = createTests(trainData, testData, trainDow, testDow)
+test = createTests(trainData, testData)
 #print test
 #test = ([([0,0,0],[0]), ([0,0,1],[0]), ([0,1,1],[1]), ([1,0,1],[1])], [([1,0,0],[0]), ([1,0,1],[1]), ([0,0,0],[0]), ([0,1,1],[1])])
 
@@ -137,7 +138,7 @@ for i in range(len(plotNet)):
     plotNet[i] = str(plotNet[i])
 
 writeCSV(plotReal, plotNet)
-minPrice, maxPrice, prices = readCSV("ibm_open.csv")
+minPrice, maxPrice, prices = readCSV("google_open.csv")
 days = 31
 
 plotNet = prices[int(len(prices) * trainingPercent): int(len(prices) * trainingPercent) + days]
