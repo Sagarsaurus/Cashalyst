@@ -74,7 +74,7 @@ def createTests(pricesTrain, pricesTest):
 
 trainingPercent = 0.9
 
-minPrice, maxPrice, prices = readCSV("google_open.csv")
+minPrice, maxPrice, prices = readCSV("../OldNeuralNetCode/vbk.csv")
 minDow, maxDow, dow = readCSV("dow.csv")
 
 testData = []
@@ -103,7 +103,7 @@ plotReal = []
 
 #for r in range(10, 60, 5):
 for i in range(0,1):
-    results, nnet, accuracy = NeuralNet.buildNeuralNet(test, 0.1, 0.00001, [5])
+    results, nnet, accuracy = NeuralNet.buildNeuralNet(test, 0.1, 0.00005, [5])
 #    acc.append(accuracy)
 #sizes.append(acc)
     correct = 0
@@ -138,7 +138,7 @@ for i in range(len(plotNet)):
     plotNet[i] = str(plotNet[i])
 
 writeCSV(plotReal, plotNet)
-minPrice, maxPrice, prices = readCSV("google_open.csv")
+minPrice, maxPrice, prices = readCSV("../OldNeuralNetCode/vbk.csv")
 days = 31
 
 plotNet = prices[int(len(prices) * trainingPercent): int(len(prices) * trainingPercent) + days]
