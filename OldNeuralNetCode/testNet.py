@@ -101,7 +101,11 @@ plotReal = []
 
 #for r in range(10, 60, 5):
 for i in range(0,1):
+<<<<<<< HEAD
     results, nnet, accuracy = NeuralNet.buildNeuralNet(test, 0.1, 0.0000002, [5])
+=======
+    results, nnet, accuracy = NeuralNet.buildNeuralNet(test, 0.1, 0.00001, [5])
+>>>>>>> 26714c785f3a7fdf3a019eaee74b37fda9abbc0e
 #    acc.append(accuracy)
 #sizes.append(acc)
     correct = 0
@@ -136,7 +140,13 @@ for i in range(len(plotNet)):
     plotNet[i] = str(plotNet[i])
 
 writeCSV(plotReal, plotNet)
+<<<<<<< HEAD
 minPrice, maxPrice, prices = readCSV("ibm_open.csv")
+=======
+
+minPrice, maxPrice, prices = readCSV("sprint_open.csv")
+
+>>>>>>> 26714c785f3a7fdf3a019eaee74b37fda9abbc0e
 days = 31
 
 plotNet = prices[int(len(prices) * trainingPercent): int(len(prices) * trainingPercent) + days]
