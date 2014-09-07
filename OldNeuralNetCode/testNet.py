@@ -1,5 +1,6 @@
 import NeuralNet
 from random import randint
+import pickle
 
 def writeCSV(a1, a2):
     fo = open("plot.csv", "w")
@@ -28,8 +29,8 @@ def createTests2(pricesTrain, pricesTest, dowTrain, dowTest):
     tests = []
     training = []
 
-    numDays = 31
-    for i in range(numDays, len(pricesTrain) - 150):
+    numDays = 5
+    for i in range(numDays, len(pricesTrain) - 5):
         temp = []
         for j in range(0, numDays):
             temp.append(pricesTrain[i - j])
@@ -37,9 +38,9 @@ def createTests2(pricesTrain, pricesTest, dowTrain, dowTest):
             temp.append(1)
         else:
             temp.append((dowTrain[i] - dowTrain[i - numDays]) / dowTrain[i - numDays])
-        training.append((temp, [pricesTrain[i + 150]]))
+        training.append((temp, [pricesTrain[i + 5]]))
 
-    for i in range(numDays, len(pricesTest) - 150):
+    for i in range(numDays, len(pricesTest) - 5):
         temp = []
         for j in range(0, numDays):
             temp.append(pricesTest[i - j])
@@ -47,7 +48,7 @@ def createTests2(pricesTrain, pricesTest, dowTrain, dowTest):
             temp.append(1)
         else:
             temp.append((dowTest[i] - dowTest[i - numDays]) / dowTest[i - numDays])
-        tests.append((temp, [pricesTest[i + 150]]))
+        tests.append((temp, [pricesTest[i + 5]]))
 
     return (training, tests)
 
@@ -144,7 +145,8 @@ plotNet = prices[int(len(prices) * trainingPercent): int(len(prices) * trainingP
 
 plotReal = prices[int(len(prices) * trainingPercent): len(prices)]
 
-
+pickle.dump(nnet, open("nnet.p", "wb"))
+pickle.dump(test, open("test.p", "wb"))
 for i in range(days - 1, len(plotReal) - 1):
     temp = []
     for j in range(i - days - 1, i):
@@ -154,7 +156,7 @@ for i in range(days - 1, len(plotReal) - 1):
    # price = price * (maxPrice - minPrice) + minPrice
     plotNet.append(price)
 
-
+    
 for i in range(len(plotNet)):
     plotNet[i] = plotNet[i] * (maxPrice - minPrice) + minPrice
 
