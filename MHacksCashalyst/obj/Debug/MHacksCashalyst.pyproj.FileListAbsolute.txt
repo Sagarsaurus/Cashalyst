@@ -1,0 +1,13 @@
+c:\users\kpahawa\documents\visual studio 2013\Projects\MHacksCashalyst\MHacksCashalyst\bin\Microsoft.PythonTools.WebRole.dll
+c:\users\kpahawa\documents\visual studio 2013\Projects\MHacksCashalyst\MHacksCashalyst\obj\Debug\attach_server.py
+c:\users\kpahawa\documents\visual studio 2013\Projects\MHacksCashalyst\MHacksCashalyst\obj\Debug\visualstudio_py_debugger.py
+c:\users\kpahawa\documents\visual studio 2013\Projects\MHacksCashalyst\MHacksCashalyst\obj\Debug\visualstudio_py_repl.py
+c:\users\kpahawa\documents\visual studio 2013\Projects\MHacksCashalyst\MHacksCashalyst\obj\Debug\visualstudio_py_util.py
+c:\users\kpahawa\documents\visual studio 2013\Projects\MHacksCashalyst\MHacksCashalyst\obj\Debug\__init__.py
+c:\users\kpahawa\documents\visual studio 2013\Projects\MHacksCashalyst\MHacksCashalyst\obj\Debug\__main__.py
+c:\users\kpahawa\documents\visual studio 2013\Projects\MHacksCashalyst\MHacksCashalyst\bin\AzureSetup.cfg
+c:\users\kpahawa\documents\visual studio 2013\Projects\MHacksCashalyst\MHacksCashalyst\bin\Microsoft.PythonTools.AzureSetup.exe
+c:\users\kpahawa\documents\visual studio 2013\Projects\MHacksCashalyst\MHacksCashalyst\bin\Microsoft.PythonTools.AzureSetup.exe.config
+c:\users\kpahawa\documents\visual studio 2013\Projects\MHacksCashalyst\MHacksCashalyst\bin\wfastcgi.py
+c:\users\kpahawa\documents\visual studio 2013\Projects\MHacksCashalyst\MHacksCashalyst\obj\Debug\web.config
+c:\users\kpahawa\documents\visual studio 2013\Projects\MHacksCashalyst\MHacksCashalyst\obj\Debug\web.debug.config

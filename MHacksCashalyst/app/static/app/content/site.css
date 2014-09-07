@@ -1,0 +1,103 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+canvas {
+	height: auto !important;
+	margin: 0 auto;
+    max-width: 1165px;
+    width: 100% !important;
+}
+
+.btn-lg {
+    font-size: 2em !important;
+    font-family: 'Open Sans', sans-serif;
+}
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+#header {
+    background-image: url(concrete_wall.png);
+    background-attachment: fixed;
+    padding-bottom: 25em;
+    padding-top: 10em;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#primaryLabel {
+    font-size:2em;
+    text-align:center;
+}
+
+#stockSearch {
+    width: inherit !important;
+    padding-left:0px;
+    padding-right:0px;
+}
+
+#dollar {
+    width: inherit;
+    padding-right: 0;
+    padding-top: .5em;
+}
+
+#info {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.h2 {
+    font-family: 'Open Sans', sans-serif;
+}
+
+#largeUILabel {
+    font-size: 2em;
+}
+
+.container {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+#jumbotronButton {
+    font-family: 'Open Sans',sans-serif;
+    font-size: 2em;
+    width: 100%;
+    
+}
+
+.ui.green.inverted.segment {
+    background-color: #5E9910 !important;
+    font-size: 1.5em;
+
+}
